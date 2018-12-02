@@ -13,5 +13,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Include sub-projects.
+find_package(range-v3 CONFIG REQUIRED)
+link_libraries(meta range-v3)
+include_directories(include)
+
 add_subdirectory ("1_chronal_calibration")
+add_subdirectory ("2_inventory_management_system")

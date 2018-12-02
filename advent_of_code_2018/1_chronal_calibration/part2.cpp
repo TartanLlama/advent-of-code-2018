@@ -1,16 +1,11 @@
 #include <iostream>
 #include <string>
 #include <unordered_set>
-#include <range/v3/all.hpp>
-
-#define FWD(...) std::forward<decltype(__VA_ARGS__)>(__VA_ARGS__)
-
-#define LIFT(X) [](auto &&... args) \
-    noexcept(noexcept(X(FWD(args)...)))  \
-    -> decltype(X(FWD(args)...)) \
-{  \
-    return X(FWD(args)...); \
-}
+#include <range/v3/numeric/accumulate.hpp>
+#include <range/v3/view/transform.hpp>
+#include <range/v3/istream_range.hpp>
+#include <range/v3/to_container.hpp>
+#include "lift.hpp"
 
 int main()
 {
@@ -21,7 +16,7 @@ int main()
     auto nums = istream_range<std::string>(std::cin)
               | view::transform(LIFT(std::stoi))
               | to_vector;
-              
+
     while (true) {
 	    for (auto&& i : nums) {
             frequency += i;

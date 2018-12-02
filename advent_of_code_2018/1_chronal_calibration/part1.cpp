@@ -1,20 +1,15 @@
 ﻿#include <iostream>
 #include <string>
-#include <range/v3/all.hpp>
+#include <range/v3/numeric/accumulate.hpp>
+#include <range/v3/view/transform.hpp>
+#include <range/v3/istream_range.hpp>
 
-#define FWD(...) std::forward<decltype(__VA_ARGS__)>(__VA_ARGS__)
-
-#define LIFT(X) [](auto &&... args) \
-    noexcept(noexcept(X(FWD(args)...)))  \
-    -> decltype(X(FWD(args)...)) \
-{  \
-    return X(FWD(args)...); \
-}
+#include "lift.hpp"
 
 int main()
 {
 	using namespace ranges;
 	std::cout << accumulate(istream_range<std::string>(std::cin)
 	                        | view::transform(LIFT(std::stoi)),
-	                        0);
+	                        0) << '\n';
 }
