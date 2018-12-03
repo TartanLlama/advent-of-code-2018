@@ -4,6 +4,7 @@
 #include <range/v3/view/zip.hpp>
 #include <range/v3/numeric/accumulate.hpp>
 #include <range/v3/view/take.hpp>
+#include <range/v3/numeric/inner_product.hpp>
 #include <functional>
 #include <iostream>
 
@@ -11,8 +12,7 @@ using namespace ranges;
 
 int main() {
 	auto hamming_distance = [](auto&& r1, auto&& r2) { 
-		return accumulate(view::zip(r1, r2), 0, ranges::plus{},
-			[](auto&& x) { return x.first != x.second; }); 
+		return inner_product(r1, r2, 0, plus{}, not_equal_to{});
 	};
 
 	auto ns = ranges::istream_range<std::string>(std::cin) | to_vector;
