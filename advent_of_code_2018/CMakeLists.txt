@@ -19,3 +19,4 @@ include_directories(include)
 
 add_subdirectory ("1_chronal_calibration")
 add_subdirectory ("2_inventory_management_system")
+add_subdirectory ("3_no_matter_how_you_slice_it")
